@@ -47,6 +47,7 @@ def maxpool2d(x, k=2):
     
 def conv_net(x, weights, biases, dropout):
     # Layer 1 - 28*28*1 to 14*14*32
+    print("begin conv_net")
     conv1 = conv2d(x, weights['wc1'], biases['bc1'])
     conv1 = maxpool2d(conv1, k=2)
 
@@ -54,6 +55,7 @@ def conv_net(x, weights, biases, dropout):
     conv2 = conv2d(conv1, weights['wc2'], biases['bc2'])
     conv2 = maxpool2d(conv2, k=2)
 
+    print("reshape wd1 column value" , weights['wd1'].get_shape().as_list()[0]) 
     # Fully connected layer - 7*7*64 to 1024
     fc1 = tf.reshape(conv2, [-1, weights['wd1'].get_shape().as_list()[0]])
     fc1 = tf.add(tf.matmul(fc1, weights['wd1']), biases['bd1'])
